@@ -1,0 +1,12 @@
+# Local override: route new-api outbound traffic through the macOS host proxy (port 7890).
+# host.docker.internal (192.168.5.2) is forwarded by colima to the host loopback,
+# so the proxy app does not need to enable LAN access / bind 0.0.0.0.
+services:
+  new-api:
+    environment:
+      - HTTP_PROXY=http://host.docker.internal:7892
+      - HTTPS_PROXY=http://host.docker.internal:7892
+      - NO_PROXY=localhost,127.0.0.1,::1,postgres,redis,host.docker.internal
+      - http_proxy=http://host.docker.internal:7892
+      - https_proxy=http://host.docker.internal:7892
+      - no_proxy=localhost,127.0.0.1,::1,postgres,redis,host.docker.internal
